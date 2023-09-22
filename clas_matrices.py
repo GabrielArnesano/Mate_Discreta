@@ -36,6 +36,7 @@ def gen_square_matrix(n,a=-100,b=100):
         sublista = [list[k] for k in range (i,i+n)] # genero las 'filas' de la matriz
         pre_matrix.append(sublista)
     matrix = np.matrix(pre_matrix)
+    print(matrix)
     return matrix
 
 
@@ -52,29 +53,19 @@ def diag_dom(matrix):
     matrix_range = int(math.sqrt(matrix.size))
     for i in range(int(math.sqrt(matrix.size))):
         diag_list.append(abs(matrix[i,i])) # obtengo la diagonal de la matriz
-    #list = [[abs(matrix[j,k]) for j in range (matrix_range) for k in range (matrix_range)]]
     list = [np.sum(np.absolute(matrix[i])) for i in range(matrix_range)]
     list = [list[i]-diag_list[i] for i in range (matrix_range)]
     
-    for i in range(matrix_range):
-        
-        if diag_list[i] >= list[i]:
-            es_diag_dom = True
-            if diag_list[i] > list[i]:
-                es_estricta = True
-            else:
-                es_estricta = False
-        else: 
-            es_diag_dom = False
-            break
-    if es_diag_dom and es_estricta:
-        print('La matriz ingresada es estrictamente diagonal dominante')
-    elif es_diag_dom and not es_estricta:
-        print('La matriz ingresada no es estrictamente diagonal dominante')
-    else:
-        print('La matriz no es diagonal dominante, por lo tanto no es estricta tampoco')
-    return
-
-          
-          
+    diag_list = np.array(diag_list)
+    list = np.array(list)
     
+    diagonal = np.sum(diag_list)
+    fila = np.sum(list)
+    
+    if diagonal > fila: 
+        print('La matriz ingresada es estrictamente diagonal dominante')
+    elif diagonal == fila: 
+        print('La matriz es diagonal dominante no estricta')
+    else: 
+        print('La matriz no es diagonal dominante')
+    return 
