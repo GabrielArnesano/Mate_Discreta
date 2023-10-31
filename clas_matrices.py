@@ -1,3 +1,9 @@
+"""
+Created on Tue Oct 31 11:09:10 2023
+
+@author: arsan
+"""
+
 # -*- coding: utf-8 -*-
 """
 Created on Wed Sep 20 22:53:33 2023
@@ -32,11 +38,9 @@ def gen_square_matrix(n,a=-100,b=100):
     for i in range(n*n): 
         list.append(random.randint(a,b)) # coeficientes aleatorios de la matriz
     for i in range (0, n*n, n):
-        print(i)
         sublista = [list[k] for k in range (i,i+n)] # genero las 'filas' de la matriz
         pre_matrix.append(sublista)
     matrix = np.matrix(pre_matrix)
-    print(matrix)
     return matrix
 
 
@@ -59,12 +63,26 @@ def diag_dom(matrix):
     diag_list = np.array(diag_list)
     list = np.array(list)
     
-    diagonal = np.sum(diag_list)
-    fila = np.sum(list)
+    es_diagonal = True
+    es_estricta = True
     
-    if diagonal > fila: 
+    for n,i in enumerate(diag_list):
+        
+        if i >= list[n]:
+            es_diagonal
+        else: 
+            es_diagonal = False
+            es_estricta = False
+            break
+        
+        if i == list[n]:
+            es_estricta = False
+        else:
+            es_estricta
+
+    if es_estricta: 
         print('La matriz ingresada es estrictamente diagonal dominante')
-    elif diagonal == fila: 
+    elif es_diagonal: 
         print('La matriz es diagonal dominante no estricta')
     else: 
         print('La matriz no es diagonal dominante')
